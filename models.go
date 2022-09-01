@@ -2,9 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"github.com/Hintay/region_restriction_check-go/medias"
+	"github.com/Hintay/region_restriction_check-go/medias/model"
 	"sort"
-
-	"github.com/NyanChanMeow/region_restriction_check-go/pkg/medias"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -37,10 +37,11 @@ func (l *Log) ParseLevel() log.Level {
 }
 
 type Task struct {
-	Enabled  bool                     `json:"enabled"`
-	DNS      string                   `json:"dns"`
-	Medias   map[string]*medias.Media `json:"medias"`
-	Interval int                      `json:"interval"`
+	Enabled  bool                    `json:"enabled"`
+	DNS      string                  `json:"dns"`
+	SOCKS    string                  `json:"socks_proxy"`
+	Medias   map[string]*model.Media `json:"medias"`
+	Interval int                     `json:"interval"`
 }
 
 func (t *Task) UnmarshalJSON(data []byte) error {
@@ -59,6 +60,8 @@ func (t *Task) UnmarshalJSON(data []byte) error {
 			err = json.Unmarshal(v, &t.Enabled)
 		case "dns":
 			err = json.Unmarshal(v, &t.DNS)
+		case "socks_proxy":
+			err = json.Unmarshal(v, &t.SOCKS)
 		case "medias":
 			err = json.Unmarshal(v, &t.Medias)
 		case "interval":
@@ -76,6 +79,9 @@ func (t *Task) UnmarshalJSON(data []byte) error {
 	for _, v := range t.Medias {
 		if v.DNS == "" {
 			v.DNS = t.DNS
+		}
+		if v.SOCKS == "" {
+			v.SOCKS = t.SOCKS
 		}
 	}
 
@@ -100,7 +106,7 @@ func (r *regionArray) CheckAll() {
 	sort.Strings(*r)
 	if i := sort.SearchStrings(*r, "all"); i < len(*r) {
 		var regions regionArray
-		for k := range medias.MediaFuncs {
+		for k := range medias.MediaFuncList {
 			regions = append(regions, k)
 		}
 		*r = regions

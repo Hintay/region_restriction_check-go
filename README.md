@@ -1,7 +1,7 @@
 # 流媒体解锁测试
 >本程序基于[lmc999/RegionRestrictionCheck](https://github.com/lmc999/RegionRestrictionCheck)，使用 Go 语言重新实现
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/NyanChanMeow/region_restriction_check-go)](https://goreportcard.com/report/github.com/NyanChanMeow/region_restriction_check-go) ![Build Nightly](https://github.com/NyanChanMeow/region_restriction_check-go/actions/workflows/build-nightly-ci.yml/badge.svg)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Hintay/region_restriction_check-go)](https://goreportcard.com/report/github.com/Hintay/region_restriction_check-go) ![Build Nightly](https://github.com/Hintay/region_restriction_check-go/actions/workflows/build-nightly-ci.yml/badge.svg)
 
 ## 支持列表
 ### Global

@@ -3,14 +3,15 @@ package main
 import (
 	"encoding/json"
 	"flag"
+	"github.com/Hintay/region_restriction_check-go/exporter"
+	"github.com/Hintay/region_restriction_check-go/medias"
+	"github.com/Hintay/region_restriction_check-go/medias/model"
 	"io/ioutil"
 	"os"
 	"runtime"
 	"sort"
 	"time"
 
-	"github.com/NyanChanMeow/region_restriction_check-go/pkg/exporter"
-	"github.com/NyanChanMeow/region_restriction_check-go/pkg/medias"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
@@ -26,6 +27,7 @@ var (
 		ConfigFile string `json:"-"`
 		Version    bool   `json:"-"`
 		DNS        string `json:"dns"`
+		SOCKS      string `json:"socks_proxy"`
 		// Checker
 		Mode    string      `json:"-"`
 		Regions regionArray `json:"-"`
@@ -43,20 +45,20 @@ func init() {
 
 	flag.StringVar(&flags.ConfigFile, "config.file", "config.json", "only working with monitor mode")
 	flag.StringVar(&flags.DNS, "dns", "1.1.1.1:53", "default dns server")
+	flag.StringVar(&flags.SOCKS, "socks_proxy", "", "socks proxy server")
 	flag.StringVar(&flags.Mode, "mode", modeChecker, "[checker, monitor]")
 	flag.StringVar(&flags.Log.Level, "log.level", "info", "log level")
-	flag.Var(&flags.Regions, "region", "available regions: [all, JP]")
+	flag.Var(&flags.Regions, "region", "available regions: [all, Global, JP, TW, HK, NA]")
 	flag.BoolVar(&flags.Version, "version", false, "display version and exit")
 	flag.Parse()
 }
 
 func main() {
 	log.SetLevel(log.InfoLevel)
-	// Timestamp formatted as RFC3339Nano
 	log.SetFormatter(&log.TextFormatter{
 		DisableColors:   true,
 		FullTimestamp:   true,
-		TimestampFormat: "2006-01-02 15:04:05 -07:00",
+		TimestampFormat: time.RFC3339Nano,
 	})
 	log.SetOutput(os.Stdout)
 
@@ -78,7 +80,7 @@ func main() {
 func runChecker() {
 	log.SetLevel(flags.Log.ParseLevel())
 	flags.Regions.CheckAll()
-	result := make(chan *medias.CheckResult)
+	result := make(chan *model.CheckResult)
 
 	cnt := 0
 	checked := make(map[string]int)
@@ -87,15 +89,15 @@ func runChecker() {
 			continue
 		}
 
-		if mediaFuncsRegion, ok := medias.MediaFuncs[region]; ok {
+		if mediaFuncsRegion, ok := medias.MediaFuncList[region]; ok {
 			for mediaName, mediaFunc := range mediaFuncsRegion {
 				if _, ok := checked[mediaName]; ok {
 					continue
 				}
 				checked[mediaName] = 0
 				cnt++
-				go func(mn, rg string, f func(*medias.Media) *medias.CheckResult) {
-					mc := medias.NewMediaConf()
+				go func(mn, rg string, f func(*model.Media) *model.CheckResult) {
+					mc := model.NewMediaConf()
 					mc.Name = mn
 					mc.Region = rg
 					mc.Logger = log.WithFields(log.Fields{
@@ -104,6 +106,7 @@ func runChecker() {
 					})
 					mc.Timeout = 10
 					mc.DNS = flags.DNS
+					mc.SOCKS = flags.SOCKS
 					r := f(mc)
 					mc.Logger.WithFields(log.Fields{
 						"result":  r.Result,
@@ -117,7 +120,7 @@ func runChecker() {
 		}
 	}
 
-	var r medias.CheckResultSlice
+	var r model.CheckResultSlice
 	for ; cnt > 0; cnt-- {
 		r = append(r, <-result)
 	}
@@ -154,7 +157,7 @@ func runMonitor() {
 		log.WithField("exporter_listen", flags.ExporterListen).Infoln("exporter listening")
 	}()
 
-	result := make(chan *medias.CheckResult)
+	result := make(chan *model.CheckResult)
 
 	for taskName, task := range flags.Tasks {
 		if !task.Enabled {
@@ -175,14 +178,14 @@ func runMonitor() {
 			})
 
 			found := false
-			for region, mediaFuncsRegion := range medias.MediaFuncs {
+			for region, mediaFuncsRegion := range medias.MediaFuncList {
 				if mediaFunc, ok := mediaFuncsRegion[mediaName]; ok {
 					mlog = mlog.WithFields(log.Fields{
 						"region": region,
 					})
 					mediaConf.Region = region
 
-					go func(tn string, mc *medias.Media, logger *log.Entry) {
+					go func(tn string, mc *model.Media, logger *log.Entry) {
 						mc.Logger = logger
 						for {
 							res := mediaFunc(mc)

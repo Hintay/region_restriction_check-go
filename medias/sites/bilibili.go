@@ -2,6 +2,7 @@ package sites
 
 import (
 	"crypto/md5"
+	"encoding/json"
 	"fmt"
 	"github.com/Hintay/region_restriction_check-go/medias/model"
 	"github.com/google/uuid"
@@ -53,7 +54,24 @@ func checkBilibili(m *model.Media, result *model.CheckResult) {
 
 	switch resp.StatusCode() {
 	case fasthttp.StatusOK:
-		result.Yes()
+		var r struct {
+			Code    int    `json:"code"`
+			Message string `json:"message"`
+		}
+		err = json.Unmarshal(resp.Body(), &r)
+		if err != nil {
+			m.Logger.Errorln(err)
+			result.Failed(err)
+			return
+		}
+
+		if r.Code == 0 {
+			result.Yes()
+		} else if r.Code == -10403 {
+			result.No()
+		} else {
+			result.UnexpectedStatusCode(r.Code)
+		}
 	case fasthttp.StatusForbidden:
 		result.No()
 	default:

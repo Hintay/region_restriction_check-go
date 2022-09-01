@@ -16,6 +16,7 @@ var (
 		"Netflix":     multination.CheckNetflix,
 		"TVBAnywhere": multination.CheckTVBAnywhere,
 		"Viu.com":     multination.CheckViuCom,
+		"DisneyPlus":  multination.CheckDisneyPlus,
 		// "NetflixCDN": CheckNetflixCDN,
 		/*
 			"HotStar":    CheckHotStar,

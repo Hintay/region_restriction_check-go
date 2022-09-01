@@ -18,6 +18,7 @@ var (
 		"NetflixCDN":  "Netflix Preferred CDN",
 		"TVBAnywhere": "TVBAnywhere",
 		"Viu.com":     "Viu.com",
+		"DisneyPlus":  "Disney Plus",
 		// JP
 		"PCRJP":        "Princess Connect Re:Dive Japan",
 		"UMAJP":        "Pretty Derby Japan",

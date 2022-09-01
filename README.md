@@ -1,27 +1,28 @@
-# 流媒体解锁测试
->本程序基于[lmc999/RegionRestrictionCheck](https://github.com/lmc999/RegionRestrictionCheck)，使用 Go 语言重新实现
+# Region Restriction Check Go Reborn
+Based on [NyanChanMeow/region_restriction_check-go](https://github.com/NyanChanMeow/region_restriction_check-go).
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/Hintay/region_restriction_check-go)](https://goreportcard.com/report/github.com/Hintay/region_restriction_check-go) ![Build Nightly](https://github.com/Hintay/region_restriction_check-go/actions/workflows/build-nightly-ci.yml/badge.svg)
 
-## 支持列表
+## Support Sites
 ### Global
 - Dazn
 - Netflix
+- Disney Plus
 - Viu.com
-- TVBAnywhere
+- TVB Anywhere
 
 ### Asia
-- HBOGo Asia
+- HBO Go Asia
 
 ### Japan
-- 公主连接
-- 赛马娘
-- KanColle
-- Konosuba Fantastic Days
-- Project Sekai
+- Princess Connect! Re:Dive
+- Pretty Derby
+- Kantai Collection
+- Konosuba: Fantastic Days
+- Project Sekai: COLORFUL STAGE!
 
 - DMM
-- AbemaTV
+- Abema TV
 - niconico
 - Paravi
 - Hulu Japan
@@ -30,38 +31,34 @@
 - Radiko
 
 ### Taiwan
-- 巴哈姆特动画疯
+- Bahamut
 - Bilibili
 - 4GTV
-- Catchplay
-- HamiVideo
+- CATCHPLAY 
+- Hami Video
 - KKTV
-- LineTV
+- Line TV
 - LiTV
 - Eleven Sports
 
 ### HongKong
 - Bilibili
-- MyTVSuper
+- myTV Super
 - NowE
 - ViuTV
 
 ### North America
-- HBONow
-- HBOMax
+- HBO Now
+- HBO Max
 - Fox
 
-更多内容待添加
-
-## 鸣谢
+## Acknowledgements
 
 - [RegionRestrictionCheck](https://github.com/lmc999/RegionRestrictionCheck)
+- [Region_Restriction_Check-go](https://github.com/NyanChanMeow/region_restriction_check-go)
 - [BGP Shop](https://shop.bgp.sh/cart.php)
 - [LemonBench](https://github.com/LemonBench/LemonBench)
 - [netflix-verify](https://github.com/sjlleo/netflix-verify)
 
-## 捐赠
-- Monero (XMR): `88F6AYsC46SDdiC1cg5TDQV7aKbXQ8zVZ79oYfHfXpY5DbbAyo1eT5eScuUjEAFK3jLjZm3QMWLoHb5BNybsawT4PXare3G`
-
-## 许可证
+## License
 AGPL v3

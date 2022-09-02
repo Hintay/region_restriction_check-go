@@ -1,0 +1,31 @@
+name: Build Nightly
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "**/*.go"
+      - "go.mod"
+      - "go.sum"
+      - ".github/workflows/*.yml"
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+    paths:
+      - "**/*.go"
+      - "go.mod"
+      - "go.sum"
+      - ".github/workflows/*.yml"
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        go-os: [ linux, darwin ]
+        go-arch: [ amd64, 386, arm64 ]
+        exclude:
+          # Exclude i386 on darwin.
+          - go-arch: 386
+            go-os: darwin
+    uses: ./.github/workflows/build-action.yml
+    with:
+      go-os: ${{ matrix.go-os }}
+      go-arch: ${{ matrix.go-arch }}

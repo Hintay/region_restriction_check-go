@@ -1,0 +1,22 @@
+name: Build Release
+on:
+  workflow_dispatch:
+  release:
+    types:
+      - published
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        go-os: [ linux, darwin ]
+        go-arch: [ amd64, 386, arm64 ]
+        exclude:
+          # Exclude i386 on darwin.
+          - go-arch: 386
+            go-os: darwin
+    uses: ./.github/workflows/build-action.yml
+    with:
+      go-os: ${{ matrix.go-os }}
+      go-arch: ${{ matrix.go-arch }}
+      release: true

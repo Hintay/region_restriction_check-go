@@ -1,0 +1,83 @@
+name: Build
+
+on:
+  workflow_call:
+    inputs:
+      go-os:
+        required: true
+        type: string
+      go-arch:
+        required: true
+        type: string
+      release:
+        default: false
+        required: false
+        type: boolean
+      draft:
+        default: false
+        required: false
+        type: boolean
+    outputs:
+      target:
+        description: "The target filename"
+        value: ${{ jobs.build.outputs.target }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      CGO_ENABLED: 0
+      GOOS: ${{ inputs.go-os }}
+      GOARCH: ${{ inputs.go-arch }}
+      TARGET: rrc-${{ inputs.go-os }}-${{ inputs.go-arch }}
+    outputs:
+      target: ${{ env.TARGET }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ^1.18
+
+      - name: Set up cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-${{ env.GOOS }}-${{ env.GOARCH }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ env.GOOS }}-${{ env.GOARCH }}-go-
+
+      - name: Build
+        run: |
+          mkdir -p dist
+          go build -a -trimpath -ldflags "-s -w" -asmflags "-s -w" -o dist/rrc
+
+      - name: Archive backend artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.TARGET }}
+          path: dist/rrc
+
+  release:
+    if: ${{ inputs.release }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download frontend artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ needs.build.outputs.target }}
+          path: dist/rrc
+
+      - name: Prepare publish
+        run: |
+          find dist -printf '%P\n' | tar -C dist --no-recursion -zcvf ${{ needs.build.outputs.target }}.tar.gz -T -
+
+      - name: Publish
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ needs.build.outputs.target }}.tar.gz
+          draft: ${{ inputs.draft }}

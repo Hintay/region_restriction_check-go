@@ -1,7 +1,19 @@
-# Region Restriction Check Go Reborn
-Based on [NyanChanMeow/region_restriction_check-go](https://github.com/NyanChanMeow/region_restriction_check-go).
+# Region Restriction Check Go: Reborn
+Yet Another Region Restriction Checker by Golang. Based on [region_restriction_check-go](https://github.com/NyanChanMeow/region_restriction_check-go) by [NyanChanMeow](https://github.com/NyanChanMeow/).
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/Hintay/region_restriction_check-go)](https://goreportcard.com/report/github.com/Hintay/region_restriction_check-go) ![Build Nightly](https://github.com/Hintay/region_restriction_check-go/actions/workflows/build-nightly.yml/badge.svg)
+
+## About This Project
+### Features
+- DNS Supports
+- Socks Proxy Supports
+- Monitoring Mode with Prometheus Exporter
+
+### Build With
+
+- [The Go Programming Language](https://go.dev)
+- [fasthttp](https://github.com/valyala/fasthttp)
+- [Logrus](https://github.com/sirupsen/logrus)
 
 ## Support Sites
 ### Global
@@ -60,4 +72,4 @@ Based on [NyanChanMeow/region_restriction_check-go](https://github.com/NyanChanM
 - [netflix-verify](https://github.com/sjlleo/netflix-verify)
 
 ## License
-AGPL v3
+This project is provided under a GNU Affero General Public License v3.0 license that can be found in the [LICENSE](https://github.com/0xJacky/nginx-ui/blob/master/LICENSE) file. By using, distributing, or contributing to this project, you agree to the terms and conditions of this license.

@@ -1,7 +1,7 @@
 # Region Restriction Check Go Reborn
 Based on [NyanChanMeow/region_restriction_check-go](https://github.com/NyanChanMeow/region_restriction_check-go).
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/Hintay/region_restriction_check-go)](https://goreportcard.com/report/github.com/Hintay/region_restriction_check-go) ![Build Nightly](https://github.com/Hintay/region_restriction_check-go/actions/workflows/build-nightly-ci.yml/badge.svg)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Hintay/region_restriction_check-go)](https://goreportcard.com/report/github.com/Hintay/region_restriction_check-go) ![Build Nightly](https://github.com/Hintay/region_restriction_check-go/actions/workflows/build-nightly.yml/badge.svg)
 
 ## Support Sites
 ### Global
@@ -20,7 +20,6 @@ Based on [NyanChanMeow/region_restriction_check-go](https://github.com/NyanChanM
 - Kantai Collection
 - Konosuba: Fantastic Days
 - Project Sekai: COLORFUL STAGE!
-
 - DMM
 - Abema TV
 - niconico

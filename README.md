@@ -22,6 +22,8 @@ Yet Another Region Restriction Checker by Golang. Based on [region_restriction_c
 - Disney Plus
 - Viu.com
 - TVB Anywhere
+- YouTube Premium
+- iQyi Oversea
 
 ### Asia
 - HBO Go Asia

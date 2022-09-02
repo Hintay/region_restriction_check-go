@@ -20,6 +20,7 @@ var (
 		"Viu.com":        "Viu.com",
 		"DisneyPlus":     "Disney Plus",
 		"YouTubePremium": "YouTube Premium",
+		"iQYI":           "iQyi Oversea",
 		// JP
 		"PCRJP":        "Princess Connect Re:Dive Japan",
 		"UMAJP":        "Pretty Derby Japan",

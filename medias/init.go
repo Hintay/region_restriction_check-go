@@ -18,6 +18,7 @@ var (
 		"Viu.com":        multination.CheckViuCom,
 		"DisneyPlus":     multination.CheckDisneyPlus,
 		"YouTubePremium": multination.CheckYouTubePremium,
+		"iQYI":           multination.CheckiQYI,
 		// "NetflixCDN": CheckNetflixCDN,
 		/*
 			"HotStar":    CheckHotStar,

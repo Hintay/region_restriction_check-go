@@ -13,12 +13,13 @@ var (
 
 	HumanReadableNames = map[string]string{
 		// Global
-		"Dazn":        "Dazn",
-		"Netflix":     "Netflix",
-		"NetflixCDN":  "Netflix Preferred CDN",
-		"TVBAnywhere": "TVBAnywhere",
-		"Viu.com":     "Viu.com",
-		"DisneyPlus":  "Disney Plus",
+		"Dazn":           "Dazn",
+		"Netflix":        "Netflix",
+		"NetflixCDN":     "Netflix Preferred CDN",
+		"TVBAnywhere":    "TVBAnywhere",
+		"Viu.com":        "Viu.com",
+		"DisneyPlus":     "Disney Plus",
+		"YouTubePremium": "YouTube Premium",
 		// JP
 		"PCRJP":        "Princess Connect Re:Dive Japan",
 		"UMAJP":        "Pretty Derby Japan",

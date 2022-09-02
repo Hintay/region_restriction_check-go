@@ -27,15 +27,18 @@ type CheckResult struct {
 	Message string
 }
 
-func (c *CheckResult) Yes(intr ...interface{}) {
+func (c *CheckResult) Yes(msg ...interface{}) {
 	c.Result = CheckResultYes
-	if len(intr) > 0 {
-		c.Message = fmt.Sprint(intr...)
+	if len(msg) > 0 {
+		c.Message = fmt.Sprint(msg...)
 	}
 }
 
-func (c *CheckResult) No() {
+func (c *CheckResult) No(msg ...interface{}) {
 	c.Result = CheckResultNo
+	if len(msg) > 0 {
+		c.Message = fmt.Sprint(msg...)
+	}
 }
 
 func (c *CheckResult) Oversea() {
@@ -108,6 +111,9 @@ func (c *CheckResultSlice) PrintTo(writer io.Writer) {
 		}
 
 		s := HumanReadableNames[res.Media]
+		if len(s) == 0 {
+			s = res.Media
+		}
 		pad := printPadding - len(s)
 		for i := 0; i < pad; i++ {
 			s += " "

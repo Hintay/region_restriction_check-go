@@ -12,15 +12,15 @@ import (
 
 var (
 	mediasGlobal = map[string]func(*model.Media) *model.CheckResult{
-		"Dazn":        multination.CheckDazn,
-		"Netflix":     multination.CheckNetflix,
-		"TVBAnywhere": multination.CheckTVBAnywhere,
-		"Viu.com":     multination.CheckViuCom,
-		"DisneyPlus":  multination.CheckDisneyPlus,
+		"Dazn":           multination.CheckDazn,
+		"Netflix":        multination.CheckNetflix,
+		"TVBAnywhere":    multination.CheckTVBAnywhere,
+		"Viu.com":        multination.CheckViuCom,
+		"DisneyPlus":     multination.CheckDisneyPlus,
+		"YouTubePremium": multination.CheckYouTubePremium,
 		// "NetflixCDN": CheckNetflixCDN,
 		/*
 			"HotStar":    CheckHotStar,
-			"YouTubePremium": CheckYouTubePremium,
 			"YouTubeCDN": CheckYouTubeCDN,
 			"PrimeVideo": PrimeVideo,
 			"Tiktok": CheckTiktok,

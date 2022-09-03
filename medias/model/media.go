@@ -10,7 +10,8 @@ import (
 )
 
 const (
-	ContentTypeJSON = "application/json"
+	ContentTypeJSON      = "application/json"
+	ContentTypeURLEncode = "application/x-www-form-urlencoded"
 
 	UaDalvik  = "Dalvik/2.1.0 (Linux; U; Android 9; ALP-AL00 Build/HUAWEIALP-AL00)"
 	UaBrowser = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36"

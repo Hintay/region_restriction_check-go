@@ -9,6 +9,7 @@ import (
 
 const (
 	CheckResultYes           = "yes"
+	CheckResultInfo          = "info"
 	CheckResultNo            = "no"
 	CheckResultUnexpected    = "unexpected"
 	CheckResultFailed        = "failed"
@@ -47,6 +48,11 @@ func (c *CheckResult) Oversea() {
 
 func (c *CheckResult) OriginalsOnly() {
 	c.Result = CheckResultOriginalsOnly
+}
+
+func (c *CheckResult) Info(msg ...interface{}) {
+	c.Result = CheckResultInfo
+	c.Message = fmt.Sprint(msg...)
 }
 
 func (c *CheckResult) Unexpected(msg ...interface{}) {
@@ -119,11 +125,16 @@ func (c *CheckResultSlice) PrintTo(writer io.Writer) {
 			s += " "
 		}
 		s += "\t"
-		s += strings.ToUpper(res.Result)
+		if res.Result == CheckResultInfo {
+			s += res.Message
 
-		if res.Message != "" {
-			s += fmt.Sprintf(" (%s)", res.Message)
+		} else {
+			s += strings.ToUpper(res.Result)
+			if res.Message != "" {
+				s += fmt.Sprintf(" (%s)", res.Message)
+			}
 		}
+
 		fmt.Fprintln(w, s)
 	}
 	w.Flush()

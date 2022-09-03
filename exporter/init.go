@@ -9,6 +9,7 @@ import (
 var (
 	StatusMapping = map[string]int{
 		model.CheckResultYes:           10,
+		model.CheckResultInfo:          1,
 		model.CheckResultNo:            0,
 		model.CheckResultOriginalsOnly: -1,
 		model.CheckResultOverseaOnly:   -2,

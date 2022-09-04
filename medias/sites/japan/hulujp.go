@@ -8,11 +8,13 @@ import (
 
 func CheckHuluJP(m *model.Media) (result *model.CheckResult) {
 	m.URL = "https://id.hulu.jp"
+	m.Method = "HEAD"
 	m.Logger.Infoln("running")
-
 	if _, ok := m.Headers["User-Agent"]; !ok {
-		m.Headers["User-Agent"] = model.UaBrowser
+		m.Headers["User-Agent"] = model.UaDalvik
 	}
+	m.Headers["Accept"] = "*/*"
+	m.Headers["Accept-Encoding"] = "gzip, deflate, br"
 	result = &model.CheckResult{Media: m.Name, Region: m.Region}
 
 	resp, err := m.Do()

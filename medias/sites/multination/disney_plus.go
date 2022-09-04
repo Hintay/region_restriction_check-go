@@ -153,7 +153,7 @@ func (c *disneyPlus) fetchResult() error {
 	}
 
 	c.media.URL = "https://www.disneyplus.com"
-	c.media.Method = "GET"
+	c.media.Method = "HEAD"
 	c.media.Body = ""
 	delete(c.media.Headers, fasthttp.HeaderContentType)
 	resp, err = c.media.Do()
@@ -163,7 +163,7 @@ func (c *disneyPlus) fetchResult() error {
 	defer fasthttp.ReleaseResponse(resp)
 
 	location := string(resp.Header.Peek("Location"))
-	if strings.Contains(location, "unavailable") {
+	if strings.Contains(location, "unavailable") || strings.Contains(location, "hotstar") {
 		c.result.No()
 	} else {
 		c.result.Info("Available For [Disney+ ",

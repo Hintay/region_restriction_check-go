@@ -7,7 +7,7 @@ import (
 
 func CheckKancolle(m *model.Media) (result *model.CheckResult) {
 	if m.URL == "" {
-		m.URL = "http://203.104.209.7/kcscontents/"
+		m.URL = "http://203.104.209.7/kcscontents/news/"
 	}
 	m.Logger.Infoln("running")
 

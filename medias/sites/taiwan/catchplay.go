@@ -27,10 +27,6 @@ func CheckCatchplay(m *model.Media) (result *model.CheckResult) {
 	}
 	defer fasthttp.ReleaseResponse(resp)
 
-	if resp.StatusCode() != fasthttp.StatusOK {
-		result.UnexpectedStatusCode(resp.StatusCode())
-		return
-	}
 	r := make(map[string]interface{})
 	err = json.Unmarshal(resp.Body(), &r)
 	if err != nil {

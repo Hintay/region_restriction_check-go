@@ -42,7 +42,6 @@ func checkBilibili(m *model.Media, result *model.CheckResult) {
 	if _, ok := m.Headers["User-Agent"]; !ok {
 		m.Headers["User-Agent"] = model.UaBrowser
 	}
-	result = &model.CheckResult{Media: m.Name, Region: m.Region}
 
 	resp, err := m.Do()
 	if err != nil {

@@ -23,7 +23,13 @@ func CheckBahamutAnime(m *model.Media) (result *model.CheckResult) {
 	}
 	defer fasthttp.ReleaseResponse(resp)
 
-	if resp.StatusCode() != fasthttp.StatusOK {
+	switch resp.StatusCode() {
+	case fasthttp.StatusOK:
+		break
+	case fasthttp.StatusForbidden:
+		result.No()
+		return
+	default:
 		result.UnexpectedStatusCode(resp.StatusCode())
 		return
 	}

@@ -127,7 +127,6 @@ func (c *CheckResultSlice) PrintTo(writer io.Writer) {
 		s += "\t"
 		if res.Result == CheckResultInfo {
 			s += res.Message
-
 		} else {
 			s += strings.ToUpper(res.Result)
 			if res.Message != "" {

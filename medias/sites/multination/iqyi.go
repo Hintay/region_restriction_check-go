@@ -26,7 +26,7 @@ func CheckiQYI(m *model.Media) (result *model.CheckResult) {
 	if resp.Header.Cookie(&cookie) {
 		result.Yes("Region: ", strings.ToUpper(string(cookie.Value())))
 	} else {
-		result.Failed(`cookie "mod" not found`)
+		result.Unexpected(`cookie "mod" not found`)
 	}
 	return
 }

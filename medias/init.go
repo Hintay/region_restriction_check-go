@@ -13,6 +13,7 @@ import (
 var (
 	mediasGlobal = map[string]func(*model.Media) *model.CheckResult{
 		"Dazn":           multination.CheckDazn,
+		"HotStar":        multination.CheckHotStar,
 		"Netflix":        multination.CheckNetflix,
 		"TVBAnywhere":    multination.CheckTVBAnywhere,
 		"Viu.com":        multination.CheckViuCom,

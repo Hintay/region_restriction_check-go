@@ -29,7 +29,9 @@ func CheckAbemaTV(m *model.Media) (result *model.CheckResult) {
 		return
 	}
 
-	r := make(map[string]string)
+	var r struct {
+		IsoCountryCode string `json:"isoCountryCode"`
+	}
 	err = json.Unmarshal(resp.Body(), &r)
 	if err != nil {
 		m.Logger.Errorln(err)
@@ -37,14 +39,13 @@ func CheckAbemaTV(m *model.Media) (result *model.CheckResult) {
 		return
 	}
 
-	if reg, ok := r["isoCountryCode"]; ok {
-		if reg == "JP" {
-			result.Yes()
-		} else {
-			result.Oversea()
-		}
-	} else {
+	switch r.IsoCountryCode {
+	case "":
 		result.No()
+	case "Jp":
+		result.Yes()
+	default:
+		result.Oversea()
 	}
 	return
 }

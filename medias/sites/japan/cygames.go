@@ -13,6 +13,8 @@ func CheckPCRJP(m *model.Media) (result *model.CheckResult) {
 	if _, ok := m.Headers["User-Agent"]; !ok {
 		m.Headers["User-Agent"] = model.UaDalvik
 	}
+	m.Method = "HEAD"
+	m.Http2 = true
 	result = &model.CheckResult{Media: m.Name, Region: m.Region, Type: "Game"}
 
 	resp, err := m.Do()

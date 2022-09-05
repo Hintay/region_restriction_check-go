@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/Hintay/region_restriction_check-go/medias/dialer"
+	"github.com/dgrr/http2"
 	log "github.com/sirupsen/logrus"
 	"github.com/valyala/fasthttp"
 	"time"
@@ -31,6 +32,7 @@ type Media struct {
 	Name     string            `json:"-"`
 	Region   string            `json:"-"`
 	Logger   *log.Entry        `json:"-"`
+	Http2    bool              `json:"-"`
 }
 
 func NewMediaConf() *Media {
@@ -90,7 +92,17 @@ func (m *Media) GetDial() fasthttp.DialFunc {
 }
 
 func (m *Media) Do() (*fasthttp.Response, error) {
-	client := fasthttp.Client{Dial: m.GetDial()}
+	client := fasthttp.Client{
+		Dial: m.GetDial(),
+		ConfigureClient: func(hc *fasthttp.HostClient) error {
+			if m.Http2 {
+				if err := http2.ConfigureClient(hc, http2.ClientOpts{}); err != nil {
+					m.Logger.Warningf("%s doesn't support http/2\n", hc.Addr)
+				}
+			}
+			return nil
+		},
+	}
 	client.NoDefaultUserAgentHeader = true
 
 	req := fasthttp.AcquireRequest()

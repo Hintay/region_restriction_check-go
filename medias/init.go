@@ -22,11 +22,8 @@ var (
 		"iQYI":           multination.CheckiQYI,
 		// "NetflixCDN": CheckNetflixCDN,
 		/*
-			"HotStar":    CheckHotStar,
 			"YouTubeCDN": CheckYouTubeCDN,
 			"PrimeVideo": PrimeVideo,
-			"Tiktok": CheckTiktok,
-			"iQYI": CheckiQYI,
 		*/
 	}
 

@@ -72,8 +72,8 @@ var (
 	mediasNA = map[string]func(*model.Media) *model.CheckResult{
 		"Fox": america.CheckFox,
 		// "HuluUS": CheckHuluUS,
-		// "EPIX": CheckEPIX,
-		// "Starz": CheckStarz,
+		"EPIX":   america.CheckEPIX,
+		"Starz":  america.CheckStarz,
 		"HBONow": america.CheckHBONow,
 		"HBOMax": america.CheckHBOMax,
 	}

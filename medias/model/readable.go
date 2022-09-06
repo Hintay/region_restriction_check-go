@@ -52,6 +52,8 @@ var (
 		"Catchplay":    "Catchplay",
 		"ElevenSports": "Eleven Sports",
 		// NA
+		"EPIX":   "EPIX",
+		"Starz":  "Starz",
 		"HBOMax": "HBO Max",
 		"HBONow": "HBO Now",
 		"Fox":    "Fox",
